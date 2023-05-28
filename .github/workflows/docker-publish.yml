@@ -1,0 +1,66 @@
+name: Docker
+
+on:
+  push:
+    branches: [ "main" ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
+
+jobs:
+  publish-docker-images-variants:
+    strategy:
+      matrix:
+        BASE: ["mcr.microsoft.com/dotnet/sdk"]
+        PROVIDER: ["jetbrains", "microsoft"]
+        VARIANT: [alpine, jammy]
+        DOTNET_VERSION: ["6.0", "7.0"]
+        JB_VERSION: ["2023.1.2"]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+  
+      # Workaround: https://github.com/docker/build-push-action/issues/461
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@79abd3f86f79a9d68a23c75a09a9a85889262adf
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build and push Docker image with Buildx
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        id: build-and-push
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        with:
+          push : true
+          context: ./src/${{matrix.PROVIDER}}
+          build-args:
+            BASE : ${{matrix.BASE}}
+            DOTNET_VERSION: ${{matrix.DOTNET_VERSION}}
+            IMAGE_VARIANT: ${{matrix.VARIANT}}
+            JB_ARCH: ${{matrix.VARIANT == "alpine" && "linux-musl-x64" || "linux-x64"}}
+            JB_CLIENT_VERSION : ${{matrix.JB_VERSION}}
+          tags: ${{env.IMAGE_NAME}}/${{matrix.PROVIDER}}-${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}-${{matrix.JB_VERSION}}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
