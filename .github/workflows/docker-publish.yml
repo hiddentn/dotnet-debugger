@@ -52,7 +52,7 @@ jobs:
         with:
           push: true
           context: ./src/microsoft
-          file: ./src/microsoft/Dockerfile.${{matrix.VARIANT}}
+          file: Dockerfile.${{matrix.VARIANT}}
           build-args: |
             BASE=${{matrix.BASE}}
             DOTNET_VERSION=${{matrix.DOTNET_VERSION}}
@@ -102,7 +102,7 @@ jobs:
         with:
           push: true
           context: ./src/jetbrains
-          file: ./src/jetbrains/Dockerfile.${{matrix.VARIANT}}
+          file: Dockerfile.${{matrix.VARIANT}}
           build-args: |
             BASE=${{matrix.BASE}}
             DOTNET_VERSION=${{matrix.DOTNET_VERSION}}
@@ -155,7 +155,7 @@ jobs:
         with:
           push: true
           context: ./src
-          file: ./src/Dockerfile.${{matrix.VARIANT}}
+          file: Dockerfile.${{matrix.VARIANT}}
           build-args: |
             BASE=${{matrix.BASE}}
             DOTNET_VERSION=${{matrix.DOTNET_VERSION}}
