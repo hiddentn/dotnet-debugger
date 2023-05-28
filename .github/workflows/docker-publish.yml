@@ -58,7 +58,7 @@ jobs:
             BASE : ${{matrix.BASE}}
             DOTNET_VERSION: ${{matrix.DOTNET_VERSION}}
             IMAGE_VARIANT: ${{matrix.VARIANT}}
-            JB_ARCH: ${{matrix.VARIANT == "alpine" && "linux-musl-x64" || "linux-x64"}}
+            JB_ARCH: ${{matrix.VARIANT == 'alpine' && 'linux-musl-x64' || 'linux-x64'}}
             JB_CLIENT_VERSION : ${{matrix.JB_VERSION}}
           tags: ${{env.IMAGE_NAME}}/${{matrix.PROVIDER}}-${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}-${{matrix.JB_VERSION}}
           cache-from: type=gha
