@@ -3,7 +3,7 @@ ARG DOTNET_VERSION="6.0"
 ARG IMAGE_VARIANT="alpine"
 
 FROM $BASE:$DOTNET_VERSION-$IMAGE_VARIANT
-RUN apk add --update unzip
+RUN apk add --update unzip zip
 RUN dotnet tool install --global dotnet-monitor
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
@@ -14,11 +14,6 @@ ARG JB_VERSION="${JB_ARCH}.${JB_CLIENT_VERSION}"
 
 LABEL org.opencontainers.image.description="a Docker container that contains debuggers and tools for debugging .NET apps"
 LABEL maintainer="Mohamed Amine <hiddentn@outlook.com>"
-LABEL com.dotnet-debugger.debugger="JetBrains Debugger"
-LABEL com.dotnet-debugger.dottrace="JetBrains DotTrace"
-LABEL com.dotnet-debugger.dotmemory="JetBrains dotMemory"
-LABEL com.dotnet-debugger.rider="JetBrains Rider"
-LABEL com.dotnet-debugger.dotnetsdk=".NET SDK"
 LABEL com.dotnet-debugger.dotnet-version=$DOTNET_VERSION
 LABEL com.dotnet-debugger.resharper-version=$JB_CLIENT_VERSION
 LABEL com.dotnet-debugger.arch=JB_ARCH
@@ -70,6 +65,19 @@ RUN curl -sSL $JB_SSH_URL -o $JB_SSH_PATH && \
 ARG VSDBG_DEBUGGER="https://aka.ms/getvsdbgsh"
 ARG VSDBG_DEBUGGER_PATH="~/vsdbg"
 RUN curl -sSL $VSDBG_DEBUGGER | /bin/sh /dev/stdin -v latest -l $VSDBG_DEBUGGER_PATH
+
+COPY ./jetbrains/scripts/jbssh/jbssh_start.sh  \
+     ./jetbrains/scripts/dotmemory/dotmemory_interactive.sh  \
+     ./jetbrains/scripts/dotmemory/dotmemory_snapshot.sh  \
+     ./jetbrains/scripts/dottrace/dottrace_sampling.sh  \
+     ./jetbrains/scripts/dottrace/dottrace_timeline.sh  \
+     /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/jbssh_start.sh && \
+    chmod +x /usr/local/bin/dotmemory_interactive.sh && \
+    chmod +x /usr/local/bin/dotmemory_snapshot.sh && \
+    chmod +x /usr/local/bin/dottrace_sampling.sh && \
+    chmod +x /usr/local/bin/dottrace_timeline.sh
 
 
 

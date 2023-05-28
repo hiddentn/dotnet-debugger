@@ -3,7 +3,7 @@ ARG DOTNET_VERSION="6.0"
 ARG IMAGE_VARIANT="alpine"
 
 FROM $BASE:$DOTNET_VERSION-$IMAGE_VARIANT as base
-RUN apk add --update unzip
+RUN apk add --update unzip zip
 RUN dotnet tool install --global dotnet-monitor
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
@@ -11,7 +11,6 @@ FROM base as visualstudio
 
 LABEL org.opencontainers.image.description="a Docker container that contains debuggers and tools for debugging .NET apps with the Visual Studio / VSCode tech stack"
 LABEL maintainer="Mohamed Amine <hiddentn@outlook.com>"
-LABEL com.example.app.debugger="Visual Studio and VSCode Debugger"
 LABEL com.dotnet-debugger.dotnetsdk=".NET SDK"
 LABEL com.dotnet-debugger.dotnet-version=$DOTNET_VERSION
 

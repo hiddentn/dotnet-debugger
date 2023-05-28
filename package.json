@@ -1,0 +1,15 @@
+{
+  "name": "dotnet-debugger",
+  "version": "1.0.0",
+  "repository": "git@github.com:hiddentn/dotnet-debugger.git",
+  "author": "Mohamed Amine <hiddentn@outlook.com>",
+  "license": "MIT",
+  "scripts": {
+    "build:aio" : "docker build -t dotnet-debugger/aio:latest -f ./src/Dockerfile.alpine ./src",
+    "build:jetbrains" : "docker build -t dotnet-debugger/jetbrains:latest -f ./src/jetbrains/Dockerfile.alpine ./src/jetbrains",
+    "build:microsoft" : "docker build -t dotnet-debugger/microsoft:latest -f ./src/microsoft/Dockerfile.alpine ./src/microsoft",
+    "run:aio" : "docker run --rm -it --entrypoint sh dotnet-debugger/aio:latest",
+    "run:jetbrains" : "docker run --rm -it --entrypoint sh dotnet-debugger/jetbrains:latest",
+    "run:microsoft" : "docker run --rm -it --entrypoint sh dotnet-debugger/microsoft:latest"
+  }
+}
