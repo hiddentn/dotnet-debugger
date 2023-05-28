@@ -9,6 +9,12 @@ ENV PATH="${PATH}:/root/.dotnet/tools"
 
 FROM base as visualstudio
 
+LABEL org.opencontainers.image.description="a Docker container that contains debuggers and tools for debugging .NET apps with the Visual Studio / VSCode tech stack"
+LABEL maintainer="Mohamed Amine <hiddentn@outlook.com>"
+LABEL com.example.app.debugger="Visual Studio and VSCode Debugger"
+LABEL com.dotnet-debugger.dotnetsdk=".NET SDK"
+LABEL com.dotnet-debugger.dotnet-version=$DOTNET_VERSION
+
 # install the visual studio debugger for visual studio code and visual studio community
 ARG VSDBG_DEBUGGER="https://aka.ms/getvsdbgsh"
 ARG VSDBG_DEBUGGER_PATH="~/vsdbg"

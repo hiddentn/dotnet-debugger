@@ -14,6 +14,18 @@ ARG JB_CLIENT_VERSION="2023.1.2"
 ARG JB_CDN_PATH="https://download-cdn.jetbrains.com/resharper"
 ARG JB_VERSION="${JB_ARCH}.${JB_CLIENT_VERSION}"
 
+LABEL org.opencontainers.image.description="a Docker container that contains debuggers and tools for debugging .NET apps with the JetBrains tech stack"
+LABEL maintainer="Mohamed Amine <hiddentn@outlook.com>"
+LABEL com.dotnet-debugger.debugger="JetBrains Debugger"
+LABEL com.dotnet-debugger.dottrace="JetBrains DotTrace"
+LABEL com.dotnet-debugger.dotmemory="JetBrains dotMemory"
+LABEL com.dotnet-debugger.rider="JetBrains Rider"
+LABEL com.dotnet-debugger.dotnetsdk=".NET SDK"
+LABEL com.dotnet-debugger.dotnet-version=$DOTNET_VERSION
+LABEL com.dotnet-debugger.resharper-version=$JB_CLIENT_VERSION
+LABEL com.dotnet-debugger.arch=JB_ARCH
+
+
 # install the jetbrains debbuger utils (for rider)
 ARG JB_DEBUGGER_URL="${JB_CDN_PATH}/dotUltimate.${JB_CLIENT_VERSION}/JetBrains.Rider.RemoteDebuggerUploads.${JB_VERSION}.zip"
 ARG JB_DEBUGGER_PATH="~/.local/share/JetBrains/RiderRemoteDebugger/${JB_CLIENT_VERSION}"
