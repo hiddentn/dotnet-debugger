@@ -165,6 +165,8 @@ jobs:
             JB_CLIENT_VERSION=${{matrix.JB_VERSION}}
           tags: |
             ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}
+            ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}
+            ${{matrix.VARIANT == 'alpine' && format('{0}/{1}:{2}', env.REGISTRY,env.IMAGE_NAME,matrix.VARIANT) || ''}}
             ${{matrix.VARIANT == 'bullseye-slim' && format('{0}/{1}:{2}', env.REGISTRY,env.IMAGE_NAME,matrix.DOTNET_VERSION) || ''}}
             ${{matrix.VARIANT == 'bullseye-slim' && format('{0}/{1}:{2}', env.REGISTRY,env.IMAGE_NAME,matrix.VARIANT) || ''}}
             ${{matrix.VARIANT == 'bullseye-slim' && format('{0}/{1}', env.REGISTRY,env.IMAGE_NAME) || ''}}
