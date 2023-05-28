@@ -18,8 +18,8 @@ jobs:
       matrix:
         BASE: ["mcr.microsoft.com/dotnet/sdk"]
         PROVIDER: ["jetbrains", "microsoft"]
-        VARIANT: [alpine, jammy]
-        DOTNET_VERSION: ["6.0", "7.0"]
+        DOTNET_VERSION: ["6.0"]
+        VARIANT: ["alpine"]
         JB_VERSION: ["2023.1.2"]
     runs-on: ubuntu-latest
     permissions:
