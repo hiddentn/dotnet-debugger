@@ -20,7 +20,7 @@ ARG JB_DEBUGGER_PATH="~/.local/share/JetBrains/RiderRemoteDebugger/${JB_CLIENT_V
 
 RUN curl -sSL $JB_DEBUGGER_URL -o debugger.zip && \
     mkdir -p $JB_DEBUGGER_PATH && \
-    unzip -o debugger.zip -d $JB_DEBUGGER_PATH && \
+    unzip -q -o debugger.zip -d $JB_DEBUGGER_PATH && \
     rm debugger.zip
 
 # install the JetBrains.dotTrace cli tools for memory profiling

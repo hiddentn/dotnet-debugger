@@ -60,9 +60,9 @@ jobs:
             JB_ARCH=${{matrix.VARIANT == 'alpine' && 'linux-musl-x64' || 'linux-x64'}}
             JB_CLIENT_VERSION=${{matrix.JB_VERSION}}
           tags: |
-            ${{env.IMAGE_NAME}}-microsoft-${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}
-            ${{env.IMAGE_NAME}}-microsoft-${{matrix.DOTNET_VERSION}}
-            ${{env.IMAGE_NAME}}-microsoft
+            ${{env.IMAGE_NAME}}:microsoft-${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}
+            ${{env.IMAGE_NAME}}:microsoft-${{matrix.DOTNET_VERSION}}
+            ${{env.IMAGE_NAME}}:microsoft
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -73,13 +73,11 @@ jobs:
         DOTNET_VERSION: ["6.0"]
         VARIANT: ["alpine"]
         JB_VERSION: ["2023.1.2"]
+
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
-      id-token: write
 
     steps:
       - name: Checkout repository
@@ -113,9 +111,9 @@ jobs:
             JB_ARCH=${{matrix.VARIANT == 'alpine' && 'linux-musl-x64' || 'linux-x64'}}
             JB_CLIENT_VERSION=${{matrix.JB_VERSION}}
           tags: |
-            ${{env.IMAGE_NAME}}-jetbrains-${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}-${{matrix.JB_VERSION}}
-            ${{env.IMAGE_NAME}}-jetbrains-${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}
-            ${{env.IMAGE_NAME}}-jetbrains-${{matrix.DOTNET_VERSION}}
-            ${{env.IMAGE_NAME}}-jetbrains
+            ${{env.IMAGE_NAME}}:jetbrains-${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}-${{matrix.JB_VERSION}}
+            ${{env.IMAGE_NAME}}:jetbrains-${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}
+            ${{env.IMAGE_NAME}}:jetbrains-${{matrix.DOTNET_VERSION}}
+            ${{env.IMAGE_NAME}}:jetbrains
           cache-from: type=gha
           cache-to: type=gha,mode=max
