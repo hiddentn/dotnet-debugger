@@ -6,14 +6,6 @@ FROM $BASE:$DOTNET_VERSION-$IMAGE_VARIANT as base
 RUN dotnet tool install --global dotnet-monitor
 ENV PATH="${PATH}:/root/.dotnet/tools"
 
-FROM base as visualstudio
-
-# install the visual studio debugger for visual studio code and visual studio community
-RUN apk add --update unzip
-ARG VSDBG_DEBUGGER="https://aka.ms/getvsdbgsh"
-ARG VSDBG_DEBUGGER_PATH="~/vsdbg"
-RUN curl -sSL $VSDBG_DEBUGGER | /bin/sh /dev/stdin -v latest -l $VSDBG_DEBUGGER_PATH
-
 FROM base as jetbrains
 
 ARG JB_ARCH="linux-musl-x64"
