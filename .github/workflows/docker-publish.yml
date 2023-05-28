@@ -166,6 +166,6 @@ jobs:
           tags: |
             ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{matrix.DOTNET_VERSION}}-${{matrix.VARIANT}}
             ${{env.REGISTRY}}/${{env.IMAGE_NAME}}:${{matrix.DOTNET_VERSION}}
-            ${{env.REGISTRY}}/${{env.IMAGE_NAME}}
+            ${{matrix.VARIANT == 'bullseye-slim' && env.REGISTRY/env.IMAGE_NAME}}
           cache-from: type=gha
           cache-to: type=gha,mode=max
