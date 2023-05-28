@@ -123,7 +123,7 @@ jobs:
       matrix:
         BASE: ["mcr.microsoft.com/dotnet/sdk"]
         DOTNET_VERSION: ["6.0"]
-        VARIANT: ["alpine"]
+        VARIANT: ["alpine", "bullseye-slim"]
         JB_VERSION: ["2023.1.2"]
 
     runs-on: ubuntu-latest
