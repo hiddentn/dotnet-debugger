@@ -17,7 +17,8 @@ ARG JB_VERSION="${JB_ARCH}.${JB_CLIENT_VERSION}"
 ARG JB_DEBUGGER_URL="${JB_CDN_PATH}/dotUltimate.${JB_CLIENT_VERSION}/JetBrains.Rider.RemoteDebuggerUploads.${JB_VERSION}.zip"
 ARG JB_DEBUGGER_PATH="~/.local/share/JetBrains/RiderRemoteDebugger/${JB_CLIENT_VERSION}"
 
-RUN curl -sSL $JB_DEBUGGER_URL -o debugger.zip && \
+RUN RUN apk add --update unzip && \
+    curl -sSL $JB_DEBUGGER_URL -o debugger.zip && \
     mkdir -p $JB_DEBUGGER_PATH && \
     unzip -o debugger.zip -d $JB_DEBUGGER_PATH && \
     rm debugger.zip
